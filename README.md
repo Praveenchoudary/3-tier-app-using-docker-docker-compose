@@ -138,19 +138,27 @@ STEP 4: GO TO THE DIRECTORY WHERE SOURCE CODE IS AVAILABLE.
  
 ![image](https://github.com/user-attachments/assets/cde145d9-a056-430c-84c4-9467fed1ab06)
 
-STEP 5: WRITE DOCKER FILE FOR APPLICATION.
+STEP 5: WRITE DOCKER FILE FOR APPLICATION
+
+
+     
+      ...
+      
 FROM php:7.4-apache  #apache base image
 RUN docker-php-ext-install mysqli
 COPY . /var/www/html/    #default path of webserver
 
-![image](https://github.com/user-attachments/assets/d170af64-4037-466b-9657-616d91bd2bee)
+      ...
 
+![image](https://github.com/user-attachments/assets/d170af64-4037-466b-9657-616d91bd2bee)
  
 STEP 6: Create a Folder backend and Write mysql file and  Docker file for DATABASE.
  ![image](https://github.com/user-attachments/assets/b5304ef3-4507-43eb-8e9a-55ee4686f1cd)
  
 
 vim init.sql:
+                                               
+                                               ...
 Create database customers;
 use customers;
 create table donors(id int AUTO_INCREMENT primary key, fname varchar(255) NOT NULL , lname varchar(255) NOT NULL , mobileno BIGINT UNIQUE, city varchar(255) NOT NULL, bfrom date, bto date, dob date, bloodgroup varchar(255) NOT NULL);
@@ -167,15 +175,18 @@ CREATE TABLE admin ( username varchar(80) NOT NULL, name varchar(80) NOT NULL, p
 INSERT INTO admin (username, name, password) VALUES ('admin', 'admin', '12345');
 GRANT ALL PRIVILEGES ON customers.* TO 'root'@'%' IDENTIFIED BY 'admin123'; FLUSH PRIVILEGES;
 
-
+                    ...
  ![image](https://github.com/user-attachments/assets/fd28566c-380b-4df5-803b-fb19bd5c62e8)
 
 
 vim Dockerfile (For Database)
+                                            
+                                            ...
 FROM mysql/mysql-server:5.7
 COPY . /init.sql /docker-entrypoint-initdb.d/
-ENV MYSQL_ROOT_PASSWORD=admin123
-
+ENV MYSQL_ROOT_PASSWORD=admin123 
+                                                
+                                          ...
  ![image](https://github.com/user-attachments/assets/3e698bc4-c8fc-4ec8-b34f-0571bd86363b)
                
 
@@ -290,8 +301,10 @@ docker-compose version
 
 STEP 2: WRITE DOCKER COMPOSE FILE
 docker-compose.yml
+...
 
----
+                      ---
+
 version: "3"
 services:
   db:
@@ -306,6 +319,8 @@ services:
       - "1234:80"
     depends_on:
       - db
+                                      
+                                        ...
 
  
 ![image](https://github.com/user-attachments/assets/21fcc443-c383-4232-8d6c-6f4e97c03bfa)
